@@ -1,9 +1,16 @@
 package org.example;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
 
+@Tag(name = "EvenOddNumbersPrinter", description = "Выводит в консоль четные и нечетные числа двумя разными потоками последовательно")
 public class EvenOddNumbersPrinter {
+
+    @Schema(description = "Количество выводимых чисел", example = "100")
     private final int count;
 
     private final Thread t1;
@@ -18,6 +25,7 @@ public class EvenOddNumbersPrinter {
         t2 = new Thread(task(num, sem1, sem2), "Odd :");
     }
 
+    @Operation(summary = "Запускает потоки для вывода чисел")
     public void print(){
         t1.start();
         t2.start();
